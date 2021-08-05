@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useEffect,useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
@@ -41,7 +41,7 @@ const Logout = function(){
 
 export default function TemporaryDrawer() {
   const classes = useStyles();
-  const [anchor, setanchor] = React.useState(false);
+  const [anchor, setanchor] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -56,7 +56,7 @@ export default function TemporaryDrawer() {
         </IconButton>
         <Drawer anchor="left" open={anchor} onClose={toggleDrawer(false)}>
           {
-            JSON.parse(localStorage.getItem("Auth")).usertype === "Admin"?
+            JSON.parse(localStorage.getItem("Auth")).Role === "Admin"?
               <div>
               <ListItem style={{marginTop:"20px"}} button key="Home" onClick={()=>GotoInAdmin("Home")}>
                   <HomeIcon/> Home

@@ -1,9 +1,9 @@
 module.exports={
     VerifyUser:()=>{
         try{
-            if(JSON.parse(localStorage.getItem("Auth")).usertype !== "Admin" && JSON.parse(localStorage.getItem("Auth")).usertype !== "SubAdmin")
+            if(JSON.parse(localStorage.getItem("Auth")).Role !== "Admin" && JSON.parse(localStorage.getItem("Auth")).Role !== "SubAdmin")
             {
-                alert(JSON.parse(localStorage.getItem("Auth").usertype)); 
+                alert(JSON.parse(localStorage.getItem("Auth").Role)); 
                 return false;
             }
             return true;
@@ -11,6 +11,6 @@ module.exports={
         catch(e){ return false; }
     },
     VerifyAuthurization:()=>{
-        return JSON.stringify(localStorage.getItem("Auth")).usertype
+        return JSON.stringify(localStorage.getItem("Auth")).Role
     }
 }

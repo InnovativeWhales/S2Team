@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ConstRouts from '../../Constants/ConstRouts';
+import axios from 'axios';
 import './index.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -34,16 +35,25 @@ let Login = ()=>{
                             <h2>S2Team Admin</h2>
                             <form onSubmit={(e)=>{
                                 e.preventDefault();
-                                if(UserName==="Admin" && Password === "S2TeamAdmin"){
-                                    localStorage.setItem("Auth",`{"usertype":"Admin"}`);
-                                    window.location.href=ConstRouts.Admin.Home;
-                                } 
-                                else if(UserName === "User1" && Password === "S2TeamSubAdmin")
-                                {
-                                    localStorage.setItem("Auth",`{"usertype":"SubAdmin"}`);
-                                    window.location.href=ConstRouts.Admin.SubAdmin
-                                }
-                                    
+
+                                axios.post(ConstRouts.server.url+ConstRouts.server.Login,{Username:UserName,Password:Password})
+                                .then(response =>{
+                                    if(response.data.Status === "Sucess")
+                                    {
+                                        localStorage.setItem("Auth",JSON.stringify(response.data.Data));
+                                        if(response.data.Data.Role == "SubAdmin")
+                                            window.location.href=ConstRouts.Admin.SubAdmin;
+                                        if(response.data.Data.Role == "Admin")
+                                            window.location.href=ConstRouts.Admin.Home;
+                                    } 
+                                    else{
+                                        alert("Invalid Credintials")
+                                    }
+                                })
+                                .catch((error)=>{
+                                    console.log(error)
+                                    alert("invalid Credentials");
+                                });  
                             }}>
                                 <TextField
                                 size = "medium"

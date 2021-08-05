@@ -1,12 +1,14 @@
 module.exports = {
     Routes:{
         Login:{"Route":"/Login","Permission":"None"},
+        Login:{"Route":"/Verify","Permission":"None"},
         Admin:{"Route":"/Admin","Permission":"Admin"},
         SubAdmin:{"Route":"/SubAdmin","Permission":"SubAdmin"},
         AddSubAdmin:{"Route":"/AddSubAdmin","Permission":"Admin"},
         UpdateSubAdmin:{"Route":"/UpdateSubAdmin","Permission":"Admin"},
         DeleteSubAdmin:{"Route":"/DeleteSubAdmin","Permission":"Admin"},
-        GetRecords:{"Route":"/GetRecords","Permission":"SubAdmin"},
+        GetAllSubAdmins:{"Route":"/GetAllSubAdmins","Permission":"Admin"},
+        GetRecords:{"Route":"/GetRecords","Permission":"Admin"},
         UpdateRecords:{"Route":"/UpdateRecords","Permission":"SubAdmin"},
     },
     Database:{
@@ -18,8 +20,8 @@ module.exports = {
     },
     UsersTable:"Users",
     Key:"skajnxnjj&6a5ahhsh09",
-    ressend:function(Data,StatusCode,res,Status){
-        res.status(StatusCode).send(JSON.stringify({Data:Data,Status:Status,StatusCode:StatusCode})).end();
+    ressend:function({Message,Data,StatusCode,res,Status}){
+        res.status(StatusCode).send(JSON.stringify({Message:Message,Data:Data,Status:Status,StatusCode:StatusCode})).end();
     },
     SaltRounds:10
 }

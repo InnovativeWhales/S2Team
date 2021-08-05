@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useEffect,useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -27,12 +27,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 let Admin =  ()=>{
-    if(!Auth.VerifyUser()){
-        alert(Auth.VerifyUser());
-        window.location.href="/";
-    }
+    const [UnAutherised,setUnAutherised] = useState(true);
+    useEffect(() => {
+        if(!Auth.VerifyUser()){
+            alert("UnAutherised");
+            window.location.href="/";
+        }
+        else
+        {
+            setUnAutherised(false);
+        }
+    });
     const classes = useStyles();
     return(
+        UnAutherised === true?
+        <div>
+        </div>:
         <div>
             <AppBar position="static">
                 <Toolbar>

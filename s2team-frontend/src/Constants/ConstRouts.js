@@ -8,5 +8,9 @@ module.exports={
         BulkExcelUpload:"/Admin/BulkExcelUpload"
     },
     Login:"/Login",
-
+    server:{
+        url:"http://localhost:8080",
+        Login:"/Login",
+        Verify:"/verify"
+    }
 }

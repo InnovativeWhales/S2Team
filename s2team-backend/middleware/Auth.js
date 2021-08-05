@@ -14,7 +14,7 @@ keys.map((value)=>{ Routepermissions["/"+constants.Routes[value].Permission+cons
 
 //Auth verification Takes Barrer and verifys it adn returns the decoded and checks for valid permession
 VerifyAuth = function (req, res, next) {
-    if(Routepermissions[req.url] != "None")
+    if(Routepermissions[req.url] != "None" && Routepermissions[req.url] != undefined)
     {
       const bearerHeader = req.headers['authorization'];
 
@@ -25,7 +25,7 @@ VerifyAuth = function (req, res, next) {
         try
         {
           const decoded = jwt.verify(bearerToken, constants.Key);
-            if(Routepermissions[req.url] === decoded.Role)
+            if(Routepermissions[req.url] == decoded.Role)
             {
               req.decoded = decoded;
               next();
