@@ -17,14 +17,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const data = {
     "District":{
       type:"DropDown",
-      keys:["Nandyala","Nizamabad"],
+      keys:["Kurnool"],
       next:
           {
-              "Nandyala":{
+              "Kurnool":{
                 "constituencies":{
-                    keys:["constituencie 1","constituencie 2"],
+                    keys:["Nandyal"],
                     next:{
-                        "constituencie 1":{
+                        "Nandyal":{
                             keys:["Ward 36","Ward 2"],
                             next:{
                               "Ward 36":{
@@ -35,7 +35,7 @@ const data = {
                               },
                             }
                         },
-                        "constituencie 2":{
+                        "":{
                             keys:["Ward 3","Ward 4"],
                             next:{
                               "Ward 3":{
@@ -1653,7 +1653,7 @@ function SaveContents()
 let SubAdmin = ()=>{   
     const classes = useStyles();
     const [Dist,SetDist] = useState("");
-    const [Constituencies,SetConstituencies] = useState("");
+    const [constituencies,Setconstituencies ] = useState("");
     const [Ward,SetWard] = useState("");
     const [Name,SetName] = useState("");
     const [TempVal,SetTempVal] = useState("");
@@ -1744,7 +1744,7 @@ let SubAdmin = ()=>{
           labelId="District"
           id="District"
           value={Dist}
-          onChange={(e)=>{SetDist(e.target.value);SetConstituencies("");SetWard("");SetName("")}}
+          onChange={(e)=>{SetDist(e.target.value);Setconstituencies("");SetWard("");SetName("")}}
         >
           {
               data.District.keys.map((value)=><MenuItem value={value}>{value}</MenuItem>)
@@ -1752,12 +1752,12 @@ let SubAdmin = ()=>{
         </Select>
         </FormControl>
             <FormControl className={classes.formControl}>
-            <InputLabel id="constituencies">constituencies</InputLabel>
+            <InputLabel id="constituencies">Constituencies </InputLabel>
             <Select
             labelId="constituencies"
             id="constituencies"
-            value={Constituencies}
-            onChange={(e)=>{SetConstituencies(e.target.value);SetWard("");SetName("")}}
+            value={constituencies}
+            onChange={(e)=>{Setconstituencies(e.target.value);SetWard("");SetName("")}}
             >
             {
                 Dist!==""&&Dist!==null ?data.District.next[Dist].constituencies.keys.map((value)=><MenuItem value={value}>{value}</MenuItem>):<div></div>
@@ -1765,7 +1765,7 @@ let SubAdmin = ()=>{
             </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
-            <InputLabel id="Wards">Wards</InputLabel>
+            <InputLabel id="Wards">Wards / Village</InputLabel>
             <Select
             labelId="Wards"
             id="Wards"
@@ -1773,7 +1773,7 @@ let SubAdmin = ()=>{
             onChange={(e)=>{SetWard(e.target.value);SetName("")}}
             >
             {
-                (Dist!==""&&Dist!==null) && (Constituencies!==""&&Constituencies!==null) ?data.District.next[Dist].constituencies.next[Constituencies].keys.map((value)=><MenuItem value={value}>{value}</MenuItem>):<div></div>
+                (Dist!==""&&Dist!==null) && (constituencies !==""&&constituencies !==null) ?data.District.next[Dist].constituencies.next[constituencies].keys.map((value)=><MenuItem value={value}>{value}</MenuItem>):<div></div>
             }
             </Select>
             </FormControl>
@@ -1786,16 +1786,16 @@ let SubAdmin = ()=>{
           onChange={(e)=>{SetName(e.target.value)}}
         >
           {
-              (Dist!==""&&Dist!==null) && (Constituencies!==""&&Constituencies!==null) && (Ward!==""&&Ward!==null)?data.District.next[Dist].constituencies.next[Constituencies].next[Ward].keys.map((value)=><MenuItem value={value.Name}>{value.Name}</MenuItem>):<div></div>
+              (Dist!==""&&Dist!==null) && (constituencies!==""&&constituencies!==null) && (Ward!==""&&Ward!==null)?data.District.next[Dist].constituencies.next[constituencies].next[Ward].keys.map((value)=><MenuItem value={value.Name}>{value.Name}</MenuItem>):<div></div>
           }
         </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-        {(Dist!==""&&Dist!==null) && (Constituencies!==""&&Constituencies!==null) && (Ward!==""&&Ward!==null) && (Name!==""&&Name!==null)?
+        {(Dist!==""&&Dist!==null) && (constituencies!==""&&constituencies!==null) && (Ward!==""&&Ward!==null) && (Name!==""&&Name!==null)?
         <TextField
                                 editable={false}
-                                label="MobileNo"
-                                value={data.District.next[Dist].constituencies.next[Constituencies].next[Ward].keys.filter((value)=>{if(value.Name === Name)return true})[0].MobileNo}
+                                label="Mobile No"
+                                value={data.District.next[Dist].constituencies.next[constituencies].next[Ward].keys.filter((value)=>{if(value.Name === Name)return true})[0].MobileNo}
                                 />:
                                 <div></div>
         }
@@ -1803,7 +1803,7 @@ let SubAdmin = ()=>{
             <br/>
             <br/>
             {
-              (Dist === "Nandyala" && Constituencies === "constituencie 1" && Ward === "Ward 36" && Name === "Nagendra") ? <ReactDataGrid
+              (Dist === "Kurnool" && constituencies === "Nandyal" && Ward === "Ward 36" && Name === "Nagendra") ? <ReactDataGrid
               onEditComplete={onEditComplete}
               editable={true}
               theme={"blue-light"}
