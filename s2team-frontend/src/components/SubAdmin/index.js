@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import ReactDataGrid from '@inovua/reactdatagrid-community';
 import '@inovua/reactdatagrid-community/index.css';
 import '@inovua/reactdatagrid-community/theme/blue-light.css';
-import { Button, Checkbox } from '@material-ui/core';
+import { Button, Checkbox, Input } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -85,25 +85,6 @@ const data = {
 
   const dataSource = 
   [
-    {
-      id: 3,
-      'House Number': 'H.No',
-      'Citizen Name': 'Citizen Name',
-      'Location and Landmark': '',
-      'Phone Number': 'Mobile No',
-      'Family Details': '',
-      'Scheme Availed': 'Welfare Schemes',
-      'Eligble but Schemes not Availed': '',
-      'Volunteer Feedback': '',
-      'House Hold Feedback': '',
-      Grivance: '',
-      'Issue mentioned date': '',
-      'Issue resolved date': '',
-      'what actually happend': '',
-      'Case Study': '',
-      'Last Updated': '',
-      Comments: ''
-    },
     {
       id: 4,
       'House Number': '25/266',
@@ -1691,23 +1672,56 @@ let SubAdmin = ()=>{
                     
       )
     }
+    function Date({value}){
+      SetTempVal(value);
+      return(
+        <Input
+                                    size = "small"
+                                    variant="outlined"
+                                    margin="normal"
+                                    inputProps={{style: {fontSize: 10}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 10}}} // font size of input label
+                                    style={{width:"100%"}}
+                                    value={TempVal}
+                                    onChange={(e)=>{alert("changing value")}}
+                                    type="date"
+                                    required
+                                    />
+                    
+      )
+    }
   
     const columns = [
-      { name: 'House Number', header: 'House Number', minWidth: 200, defaultFlex: 2},
-      { name: 'Citizen Name', header: 'Citizen Name', minWidth: 200, defaultFlex: 2, editor: edit},
+      { name: 'House Number', header: 'House Number', minWidth: 200, defaultFlex: 2, editable:false, group:"Basic Details", draggable:false},
+      { name: 'Citizen Name', header: 'Citizen Name', minWidth: 200, defaultFlex: 2, editor: edit, group:"Basic Details", draggable:false},
       //{ name: 'Location and Landmark', header: 'Location and Landmark', minWidth: 200, defaultFlex: 2, editable:false},
-      { name: 'Phone Number', header: 'Phone Number', minWidth: 200, defaultFlex: 2, editable:false },
+      { name: 'Phone Number', header: 'Phone Number', minWidth: 200, defaultFlex: 2, editable:false ,group:"Basic Details", draggable:false },
       //{ name: 'Family Details', header: 'Family Details', minWidth: 200, defaultFlex: 2, editable:false },
-      { name: 'Scheme Availed', header: 'Scheme Availed', minWidth: 250, defaultFlex: 2 },
-      { name: 'Eligble but Schemes not Availed', header: 'Eligble but Schemes not Availed', minWidth: 250, defaultFlex: 2 },
-      { name: 'Volunteer Feedback', header: 'Volunteer Feedback', minWidth: 200, defaultFlex: 2},
-      { name: 'Grivance', header: 'Grivance', minWidth: 200, defaultFlex: 2 },
-      { name: 'issue mentioned date', header: 'issue mentioned date', minWidth: 200, defaultFlex: 2 },
-      { name: 'what actually happend', header: 'what actually happend', minWidth: 200, defaultFlex: 2 },
-      { name: 'Case Study', header: 'Case Study', minWidth: 200, defaultFlex: 2 },
-      { name: 'Last updated on', header: 'Last updated on', minWidth: 200, defaultFlex: 2 },
+      { name: 'Scheme Availed', header: 'Welfare Scheme Availed', minWidth: 250, defaultFlex: 2,group:"Basic Details", draggable:false },
+      { name: 'Area Name / Colony name', header: 'Area Name / Colony name', minWidth: 250, defaultFlex: 2,group:"Basic Details", draggable:false },
+      { name: 'Eligble but Schemes not Availed', header: 'Scheme Grievance', minWidth: 250, defaultFlex: 2, group : "Welfare Scheme Grievance", draggable:false },
+      { name: 'Reported Issue', header: 'Reported Issue', minWidth: 200, defaultFlex: 2, group:"Welfare Scheme Grievance", draggable:false},
+      { name: 'Volunteer Feedback', header: 'Volunteer Feedback', minWidth: 200, defaultFlex: 2, group:"Welfare Scheme Grievance", draggable:false},
+      { name: 'Date Of Problem', header: 'Date Of Problem', group:"Welfare Scheme Grievance", minWidth: 200, defaultFlex: 2, draggable:false, editor: Date},
+      { name: 'Date Of Resolved', header: 'Date Of Resolved', group:"Welfare Scheme Grievance", minWidth: 200, defaultFlex: 2, draggable:false, editor: Date },
+      { name: 'Attachments', header: 'Attachments', group:"Welfare Scheme Grievance", minWidth: 200, defaultFlex: 2, draggable:false },
+      { name: 'Type Grievance', header: 'Type Grievance', minWidth: 200, defaultFlex: 2, group:"Municipal Grievance", draggable:false },
+      { name: 'Reported Issue Muicipal', header: 'Reported Issue', minWidth: 200, defaultFlex: 2, group:"Municipal Grievance", draggable:false},
+      { name: 'Date Of Problem Muicipal', header: 'Date Of Problem', group:"Municipal Grievance" , minWidth: 200, defaultFlex: 2,draggable:false, editor: Date },
+      { name: 'Date Of Resolved Muicipal', header: 'Date Of Resolved', group:"Municipal Grievance" , minWidth: 200, defaultFlex: 2,draggable:false, editor: Date },
+      { name: 'Attachments Muicipal', header: 'Attachments', group:"Municipal Grievance" , minWidth: 200, defaultFlex: 2,draggable:false },
+      { name: 'Development Request', header: 'Development Request', minWidth: 200, defaultFlex: 2, group:"Development Request",draggable:false },
+      { name: 'Date Of Request Development', header: 'Date Of Request', minWidth: 200, defaultFlex: 2, group:"Development Request",draggable:false, editor: Date },
+      { name: 'Date Of Resolved Development', header: 'Date Of Resolved', minWidth: 200, defaultFlex: 2, group:"Development Request",draggable:false, editor: Date },
       { name: 'Comments', header: 'Comments', minWidth: 200, defaultFlex: 2 }, 
     ];
+
+    const groups = [
+      { name: 'Basic Details', header: <center>Basic Details</center>},
+      { name: 'Welfare Scheme Grievance', header: <center>Welfare Scheme Grievance</center>},
+      { name: 'Municipal Grievance', header: <center>Municipal Grievance</center>},
+      { name: 'Development Request', header: <center>Development Request</center>}
+    ]
 
     function DropDown(topvalue){
       return(
@@ -1731,10 +1745,11 @@ let SubAdmin = ()=>{
     })
     const Selects = useCallback((data) => {
       console.log(data)
-      if(data[1]===4)
+      if(data[1]===5)
       SetOpenSchemes(true);
-      if(data[1]===6)
+      if(data[1]===10){
       SetOpenGrivance(true);
+      }
     })
     return(
         <div>
@@ -1778,6 +1793,22 @@ let SubAdmin = ()=>{
             </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
+            <TextField
+                                editable={false}
+                                label="Corporator Name"
+                                value={""}
+                                />
+                                <div></div>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+            <TextField
+                                editable={false}
+                                label="Corporator Number"
+                                value={""}
+                                />
+                                <div></div>
+            </FormControl>
+            <FormControl className={classes.formControl}>
         <InputLabel id="Name">Name</InputLabel>
         <Select
           labelId="Name"
@@ -1810,12 +1841,14 @@ let SubAdmin = ()=>{
               idProperty="id"
               style={gridStyle}
               columns={columns}
+              groups={groups}
               activeCell={[0,-1]}
               pagination
               dataSource={dataSource}
               onActiveCellChange={Selects}
               defaultLimit={10}
               cellSelection={true}
+              showZebraRows={false}
             /> :
             <ReactDataGrid
               onEditComplete={onEditComplete}
@@ -1824,11 +1857,13 @@ let SubAdmin = ()=>{
               idProperty="id"
               style={gridStyle}
               columns={columns}
+              groups={groups}
               pagination
               dataSource={emptySource}
               defaultLimit={10}
               onActiveCellChange={Selects}
               cellSelection={true}
+              showZebraRows={false}
             />
             }
             <br/>
